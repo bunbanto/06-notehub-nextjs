@@ -33,7 +33,7 @@ export async function fetchNotes({
 }: FetchNotesParams) {
   const params: FetchNotesParams = {
     page: page,
-    perPage: 12,
+    perPage: 20,
     sortBy: sortBy,
   };
 
@@ -55,12 +55,12 @@ export async function createNote({ title, content, tag }: CreateNoteParams) {
   return response.data;
 }
 
-export async function deleteNote(noteId: number) {
-  const response = await axios.delete<Note>(`notes/${noteId}`);
+export async function deleteNote(id: number) {
+  const response = await axios.delete<Note>(`notes/${id}`);
   return response.data;
 }
 
-export async function getNoteById(noteId: number) {
-  const response = await axios<Note>(`notes/${noteId}`);
+export async function getNoteById(id: number) {
+  const response = await axios<Note>(`notes/${id}`);
   return response.data;
 }
