@@ -1,8 +1,8 @@
-import NoteList from '../../components/NoteList/NoteList';
-import { fetchNotes } from '../../lib/api';
+import NoteList from '@/components/NoteList/NoteList';
+import { fetchNotes } from '@/lib/api';
 
 const Notes = async () => {
-  const response = await fetchNotes({ page: 1 });
+  const response = await fetchNotes({});
 
   return (
     <section>
