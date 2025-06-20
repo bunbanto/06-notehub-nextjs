@@ -15,6 +15,7 @@ import css from '@/app/notes/Notes.client.module.css';
 
 interface NotesClientProps {
   notes: Note[];
+  totalPages: number;
 }
 
 export default function NotesClient({ notes }: NotesClientProps) {
@@ -35,7 +36,7 @@ export default function NotesClient({ notes }: NotesClientProps) {
 
   return (
     <section>
-      <SearchBox value={searchQuery} onChange={setSearchQuery} />
+      <SearchBox onChange={setSearchQuery} />
       <button className={css.button} onClick={() => setIsModalOpen(true)}>
         Create note +
       </button>
