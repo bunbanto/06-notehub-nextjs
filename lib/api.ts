@@ -29,7 +29,7 @@ export interface CreateNoteParams {
 export async function fetchNotes({ search, page = 1, tag }: FetchNotesParams) {
   const params: FetchNotesParams = {
     page: page,
-    perPage: 20,
+    perPage: 10,
   };
 
   if (search) params.search = search;

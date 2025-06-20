@@ -1,5 +1,5 @@
-import NoteList from '@/components/NoteList/NoteList';
 import { fetchNotes } from '@/lib/api';
+import NoteClient from './Notes.client';
 
 const Notes = async () => {
   const response = await fetchNotes({});
@@ -7,7 +7,12 @@ const Notes = async () => {
   return (
     <section>
       <h1>Notes List</h1>
-      {response?.notes?.length > 0 && <NoteList notes={response.notes} />}
+      {response?.notes?.length > 0 && (
+        <>
+          <NoteClient />
+          {/* Передаємо notes у клієнтський компонент */}
+        </>
+      )}
     </section>
   );
 };
