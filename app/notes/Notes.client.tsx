@@ -1,5 +1,8 @@
 'use client';
 
+'use client';
+
+import type { Note } from '@/types/note';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchNotes } from '@/lib/api';
@@ -10,7 +13,11 @@ import NoteModal from '@/components/NoteModal/NoteModal';
 import { useDebounce } from 'use-debounce';
 import css from '@/app/notes/Notes.client.module.css';
 
-export default function NotesClient() {
+interface NotesClientProps {
+  notes: Note[];
+}
+
+export default function NotesClient({ notes }: NotesClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const [debouncedSearch] = useDebounce(searchQuery, 500);
@@ -23,6 +30,7 @@ export default function NotesClient() {
     queryKey: ['notes', debouncedSearch, page],
     queryFn: () => fetchNotes({ search: debouncedSearch, page }),
     placeholderData: prev => prev,
+    initialData: { notes, totalPages: 1 },
   });
 
   return (
@@ -34,13 +42,15 @@ export default function NotesClient() {
       {isLoading && <p>Loading notes...</p>}
       {error && <p>Failed to load notes.</p>}
       {isFetching && !isLoading && <p>Loading...</p>}
-      <NoteList notes={data?.notes ?? []} />
+      {data?.notes?.length > 0 && <NoteList notes={data.notes} />}
 
-      <Pagination
-        pageCount={data?.totalPages ?? 1}
-        currentPage={page}
-        onPageChange={setPage}
-      />
+      {data?.totalPages > 1 && (
+        <Pagination
+          pageCount={data.totalPages}
+          currentPage={page}
+          onPageChange={setPage}
+        />
+      )}
       {isModalOpen && (
         <NoteModal
           onClose={() => {

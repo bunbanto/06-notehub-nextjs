@@ -3,16 +3,12 @@ import NoteClient from './Notes.client';
 
 const Notes = async () => {
   const response = await fetchNotes({});
+  const notes = response?.notes || [];
 
   return (
     <section>
       <h1>Notes List</h1>
-      {response?.notes?.length > 0 && (
-        <>
-          <NoteClient />
-          {/* Передаємо notes у клієнтський компонент */}
-        </>
-      )}
+      <NoteClient notes={notes} />
     </section>
   );
 };
