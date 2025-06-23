@@ -35,7 +35,7 @@ export default function NotesClient({ notes, totalPages }: NotesClientProps) {
 
   return (
     <div className={css.app}>
-      <header className={css.toolbar}>
+      <div className={css.toolbar}>
         <SearchBox
           onChange={query => {
             setSearchQuery(query);
@@ -52,7 +52,7 @@ export default function NotesClient({ notes, totalPages }: NotesClientProps) {
         <button className={css.button} onClick={() => setIsModalOpen(true)}>
           Create note +
         </button>
-      </header>
+      </div>
 
       {isLoading && <Loader />}
       {error && <p>Failed to load notes.</p>}
