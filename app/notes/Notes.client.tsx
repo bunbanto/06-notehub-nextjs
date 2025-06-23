@@ -10,6 +10,7 @@ import NoteList from '@/components/NoteList/NoteList';
 import NoteModal from '@/components/NoteModal/NoteModal';
 import { useDebounce } from 'use-debounce';
 import css from '@/app/notes/Notes.client.module.css';
+import Loader from '@/components/Loader/Loader';
 
 interface NotesClientProps {
   notes: Note[];
@@ -33,28 +34,32 @@ export default function NotesClient({ notes, totalPages }: NotesClientProps) {
   });
 
   return (
-    <section>
-      <SearchBox
-        onChange={query => {
-          setSearchQuery(query);
-          setPage(1);
-        }}
-      />
-      <button className={css.button} onClick={() => setIsModalOpen(true)}>
-        Create note +
-      </button>
-      {isLoading && <p>Loading notes...</p>}
+    <div className={css.app}>
+      <header className={css.toolbar}>
+        <SearchBox
+          onChange={query => {
+            setSearchQuery(query);
+            setPage(1);
+          }}
+        />
+        {data?.totalPages > 1 && (
+          <Pagination
+            totalPages={data.totalPages}
+            currentPage={page}
+            onPageChange={setPage}
+          />
+        )}
+        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+          Create note +
+        </button>
+      </header>
+
+      {isLoading && <Loader />}
       {error && <p>Failed to load notes.</p>}
-      {isFetching && !isLoading && <p>Loading...</p>}
+      {isFetching && !isLoading && <Loader />}
+
       {data?.notes?.length > 0 && <NoteList notes={data.notes} />}
 
-      {data?.totalPages > 1 && (
-        <Pagination
-          totalPages={data.totalPages}
-          currentPage={page}
-          onPageChange={setPage}
-        />
-      )}
       {isModalOpen && (
         <NoteModal
           onClose={() => {
@@ -62,6 +67,6 @@ export default function NotesClient({ notes, totalPages }: NotesClientProps) {
           }}
         />
       )}
-    </section>
+    </div>
   );
 }

@@ -16,8 +16,6 @@ interface FetchNotesParams {
   page?: number;
   tag?: string;
   perPage?: number;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface CreateNoteParams {
@@ -29,7 +27,7 @@ export interface CreateNoteParams {
 export async function fetchNotes({ search, page = 1, tag }: FetchNotesParams) {
   const params: FetchNotesParams = {
     page: page,
-    perPage: 10,
+    perPage: 12,
   };
 
   if (search) params.search = search;

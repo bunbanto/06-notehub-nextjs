@@ -6,7 +6,6 @@ const Notes = async () => {
 
   return (
     <section>
-      <h1>Notes List</h1>
       <NoteClient notes={response.notes} totalPages={response.totalPages} />
     </section>
   );

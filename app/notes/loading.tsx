@@ -1,7 +1,11 @@
 // app/notes/loading.tsx
 
-const Loading = () => {
-  return <p>Завантаження нотатків...</p>;
-};
+import Loader from '@/components/Loader/Loader';
 
-export default Loading;
+export default function Loading() {
+  return (
+    <>
+      <Loader />
+    </>
+  );
+}
